@@ -16,7 +16,8 @@ export default function App () {
 
 
   const [tokenContract, setTokenContract] = React.useState({
-    address: '0x4f9dec4651abe5c24f80c96890f45190d974650e',
+    contract_address: '0x4f9dec4651abe5c24f80c96890f45190d974650e',
+    address: '0xa1e1847a8e79334bb2ee3645f0e1562a9d2a9f99',
     decimal: 18,
     txHash: ''
   })
@@ -54,8 +55,8 @@ export default function App () {
   }
 
   const executeSetTokenContract = async () => {
-    const { address, decimal } = tokenContract
-    const txParams = await dapp.executeContract({ address, abi }, 'setTokenContract', [address, decimal])
+    const { contract_address, address, decimal } = tokenContract
+    const txParams = await dapp.executeContract({ address: contract_address, abi }, 'setTokenContract', [address, decimal])
     const txHash = await dapp.sendTransaction({
       from: account.address,
       value: dapp.parseEther('0'),
@@ -114,6 +115,14 @@ export default function App () {
   if (enabled && network) {
     setTokenContractForm = <div>
       <h2>Token contract address</h2>
+      AirDrop contract address:
+      <input
+         style={{ width: '300px' }}
+         value={tokenContract.contract_address}
+         onChange={(e) => setTokenContract({ ...tokenContract, contract_address: e.target.value })}
+         placeholder="Airdrop Contract Address"
+      />
+      <br/>
       Which token:
       <input
          style={{ width: '300px' }}
