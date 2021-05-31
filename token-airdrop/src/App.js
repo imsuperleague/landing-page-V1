@@ -1,12 +1,8 @@
 import React from 'react'
-
 import BscDapp from '@obsidians/bsc-dapp'
-
 import logo from './logo.svg';
-
 import abi from './coin.json'
 import './App.css'
-const message = 'Hello Binance Smart Chain'
 
 export default function App () {
   const dapp = React.useMemo(() => new BscDapp(), [])
@@ -17,15 +13,11 @@ export default function App () {
   const [enabled, setEnabled] = React.useState(dapp.isBrowserExtensionEnabled)
   const [account, setAccount] = React.useState(dapp.currentAddress)
   const [network, setNetwork] = React.useState()
-  const [transferInfo, setTransferInfo] = React.useState({
-    to: '0x987ffbf3f7cdabb38782b9886d257ce74f338da5',
-    amount: '0.01',
-    txHash: ''
-  })
-  const [contractInfo, setContractInfo] = React.useState({
-    address: '0x33530bb5d7b912e01eb7cc1a27d69dd078cee03a',
-    receiver: '0xd0cda47a263859316febc1eb29a65517ab22926a',
-    amount: '1000',
+
+
+  const [tokenContract, setTokenContract] = React.useState({
+    address: '0x4f9dec4651abe5c24f80c96890f45190d974650e',
+    decimal: 18,
     txHash: ''
   })
 
@@ -37,8 +29,6 @@ export default function App () {
   })
 
 
-  const [sig, setSig] = React.useState('')
-
   React.useEffect(() => dapp.onEnabled(account => {
     setEnabled(true)
     setAccount(account)
@@ -48,7 +38,6 @@ export default function App () {
   React.useEffect(() => dapp.onNetworkChanged(result => {
     updateNetwork(result)
   }), [])
-
 
   React.useEffect(() => dapp.onAccountChanged(account => {
     setAccount(account)
@@ -64,37 +53,15 @@ export default function App () {
     }
   }
 
-  const signMessage = async () => {
-    let sig
-    if (dapp.browserExtension.name === 'MetaMask') {
-      // Ref EIP-712, sign data that has a structure
-      sig = await dapp.signTypedData([{ type: 'string', name: 'Message', value: message }])
-    } else {
-      // Binance Chain Wallet doesn't support signTypedData yet
-      sig = await dapp.signMessage(message)
-    }
-    setSig(sig)
-  }
-
-  const transfer = async (to, amount) => {
-    const tx = {
-      from: account.address,
-      to,
-      value: dapp.parseEther(amount),
-    };
-    const txHash = await dapp.sendTransaction(tx)
-    setTransferInfo({ ...transferInfo, txHash })
-  }
-
-  const execute = async () => {
-    const { address, receiver, amount } = contractInfo
-    const txParams = await dapp.executeContract({ address, abi }, 'mint', [receiver, amount])
+  const executeSetTokenContract = async () => {
+    const { address, decimal } = tokenContract
+    const txParams = await dapp.executeContract({ address, abi }, 'setTokenContract', [address, decimal])
     const txHash = await dapp.sendTransaction({
       from: account.address,
       value: dapp.parseEther('0'),
       ...txParams,
     })
-    setContractInfo({ ...contractInfo, txHash })
+    setTokenContract({ ...tokenContract, txHash })
   }
 
   const execute2 = async () => {
@@ -105,7 +72,7 @@ export default function App () {
       value: dapp.parseEther('0'),
       ...txParams,
     })
-    setContractInfo({ ...contractInfo2, txHash })
+    setContractInfo2({ ...contractInfo2, txHash })
   }
 
   let browserExtensionStatus
@@ -115,7 +82,7 @@ export default function App () {
     if (!enabled) {
       enableButton = (
         <button onClick={() => dapp.enableBrowserExtension()}>
-          Enable {dapp.browserExtension.name} | connect wallet
+          Enable {dapp.browserExtension.name} & connect your wallet
         </button>
       )
     }
@@ -128,17 +95,9 @@ export default function App () {
     accountInfo = (
       <div>
         Current account: <small><code>{account.address}</code></small>
-        <button onClick={() => getBalanceAndHistory()}>Get Balance and History</button>
+        <br/>
       </div>
     )
-  }
-
-  const getBalanceAndHistory = async () => {
-    const balance = await dapp.rpc.getBalance(account.address)
-    console.log('Balance:', balance.toString())
-
-    const txs = await dapp.explorer.getHistory(account.address)
-    console.log('TX History:', txs)
   }
 
   let networkInfo = null
@@ -150,128 +109,84 @@ export default function App () {
     }
   }
 
-  let signMessageButton = null
+
+  let setTokenContractForm = null
   if (enabled && network) {
-    signMessageButton = <div style={{ margin: '20px 0'}}>
-      <div>message: <small><code>{message}</code></small></div>
-      <div>signature: <small><code>{sig}</code></small></div>
-      {!sig && <button onClick={() => signMessage()}>Sign Message</button>}
+    setTokenContractForm = <div>
+      <h2>Token contract address</h2>
+      Which token:
+      <input
+         style={{ width: '300px' }}
+         value={tokenContract.address}
+         onChange={(e) => setTokenContract({ ...tokenContract, address: e.target.value })}
+         placeholder="Token Contract Address"
+      />
+      <br/>
+      Decimal:
+       <input
+         style={{ width: '300px' }}
+         value={tokenContract.decimal}
+         onChange={(e) => setTokenContract({ ...tokenContract, decimal: e.target.value })}
+         placeholder="Decimal"
+      />
+      <br />
+      <button onClick={() => executeSetTokenContract()}>Set Token Contract</button>
+     
     </div>
   }
-
-  let transferForm = null
-  if (enabled && network) {
-    transferForm = <div style={{ margin: '20px 0' }}>
-      <div>
-        Transfer
-      </div>
-      to:
-      <input
-        value={transferInfo.to}
-        onChange={(e) => setTransferInfo({ ...transferInfo, to: e.target.value })}
-        placeholder="Transfer to"
-      />
-      <br />
-      amount:
-      <input
-        value={transferInfo.amount}
-        onChange={(e) => setTransferInfo({ ...transferInfo, amount: e.target.value })}
-        placeholder="Transfer amount"
-      />
-      <br />
-      <button onClick={() => transfer(transferInfo.to, transferInfo.amount)}>Transfer</button>
-      {
-        !!transferInfo.txHash &&
-        <div>{transferInfo.txHash}</div>
-      }
-    </div>
-  }
-
-  let contractForm = null
-  if (enabled && network) {
-    contractForm = <div style={{ margin: '20px 0' }}>
-      <div>
-        Contract
-      </div>
-      contract:
-      <input
-        value={contractInfo.address}
-        onChange={(e) => setContractInfo({ ...contractInfo, address: e.target.value })}
-        placeholder="Contract Address"
-      />
-      <br />
-      method: mint
-      <br />
-      param1 (receiver):
-      <input
-        value={contractInfo.receiver}
-        onChange={(e) => setContractInfo({ ...contractInfo, receiver: e.target.value })}
-        placeholder="Receiver"
-      />
-      <br />
-      param2 (amount):
-      <input
-        value={contractInfo.amount}
-        onChange={(e) => setContractInfo({ ...contractInfo, amount: e.target.value })}
-        placeholder="Amount"
-      />
-      <br />
-      <button onClick={() => execute()}>Execute</button>
-      {
-        !!contractInfo.txHash &&
-        <div>{contractInfo.txHash}</div>
-      }
-    </div>
-  }
-
 
   let contractForm2 = null
   if (enabled && network) {
     contractForm2 = <div style={{ margin: '20px 0' }}>
-      <div>
-        Contract
-      </div>
-      contract:
-      <input
+      <h2>
+      SendAirdropInBulk
+      </h2>
+      Contract address:
+      <input style={{ width: '300px' }}
         value={contractInfo2.address}
         onChange={(e) => setContractInfo2({ ...contractInfo2, address: e.target.value })}
         placeholder="Contract Address"
       />
       <br />
-      method: sendAirdropInBulk
-      <br />
-      param1 (receiver address list):
-      <textarea
+      Receiver address list:
+      <textarea  style={{ width: '600px'}}
         value={contractInfo2.recv_list}
         onChange={(e) => setContractInfo2({ ...contractInfo2, recv_list: e.target.value })}
         placeholder="Receiver"
       />
       <br />
-      param2 (amount):
-      <input
+      Amount:
+      <input 
         value={contractInfo2.amount}
         onChange={(e) => setContractInfo2({ ...contractInfo2, amount: e.target.value })}
         placeholder="Amount"
       />
       <br />
-      <button onClick={() => execute2()}>Execute2</button>
+      <button onClick={() => execute2()}>Approve Token</button>
      
     </div>
   }
+
+  let pageHeader = null
+  pageHeader = <div className="page-header">
+    <p align="center">
+      {enableButton}
+    </p>
+    <h2 align="center" id="timeline">BEP-20 Token AirDrop</h2>
+  </div>
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>{browserExtensionStatus}</p>
-        {enableButton}
+        {pageHeader}
         {accountInfo}
         {networkInfo}
-        {signMessageButton}
-        {transferForm}
-        {contractForm}
+        {setTokenContractForm}
         {contractForm2}
       </header>
     </div>
   );
+
 }

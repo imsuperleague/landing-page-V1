@@ -1,116 +1,126 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script href="../assets/dist/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="DeFi Fantasy Sports Game">
-    <meta name="author" content="IM Super League">
-    <title>IM Super League | DeFi Fantasy Sports Game</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
 
-    <link rel="canonical" href="https://imsuperleague.com/">
+<head>
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script href="../assets/dist/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DeFi Fantasy Sports Game">
+  <meta name="author" content="IM Super League">
+  <title>IM Super League | DeFi Fantasy Sports Game</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
 
-    <style>
-      
-      body {
-        font-size: 16px;
+  <link rel="canonical" href="https://imsuperleague.com/">
+
+  <style>
+    body {
+      font-size: 16px;
+    }
+
+    .nav .text-secondary {
+      color: darkgoldenrod;
+    }
+
+    a,
+    a:hover,
+    .darkgoldenrod {
+      color: darkgoldenrod;
+    }
+
+    .card-cover span {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+    }
+
+    .nav {
+      margin-left: 20px;
+    }
+
+    .nav a:hover {
+      background: darkgoldenrod;
+    }
+
+    form p {
+      font-size: 15px;
+    }
+
+    ul,
+    textarea,
+    a,
+    p {
+      font-size: 16px;
+    }
+
+    .titulos {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
+  </style>
 
-      .nav .text-secondary {
-        color: darkgoldenrod;
-      }
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      a, a:hover, .darkgoldenrod {
-        color: darkgoldenrod;
-      }
-
-      .card-cover span {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px;
-      }
-
-      .nav {
-        margin-left: 20px;
-      }
-
-      .nav a:hover{
-        background: darkgoldenrod;
-      }
-
-      form p {
-        font-size: 15px;
-      }
-
-      ul, textarea, a, p {
-        font-size: 16px;
-      }      
-
-      .titulos {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  </head>
+</head>
 
 
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" style="border: 1px solid green;"></div>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root" style="border: 1px solid green;"></div>
+  <p align="center"><a href="#top">Go back to the top</a></p>
 
-    <div class="container" id="top">
-      <div class="page-header">
-          <p align="center"><img style="margin:30px 0; max-width:300px;" src="../images/logo-333-full.png"><span style="margin-left:50px;"><a href="javascript:void(0)" type="button" class="btn btn-lg btn-primary">Connect your Wallet</a> </span></p>
-          <h1 style="margin:30px 0;" align="center" id="timeline">BEP-20 Token AirDrop</h1>
-      </div>
-  
-      <div class="container">
-        <form>
-        <div class="row">      
-        <div class="col-12">
-          <fieldset>
-            <div class="mb-3">
+  <!-- <div class="container" id="top">
+    <div class="page-header">
+      <p align="center"><img style="margin:30px 0; max-width:300px;" src="../images/logo-333-full.png"><span
+          style="margin-left:50px;"><a href="javascript:void(0)" type="button" class="btn btn-lg btn-primary">Connect
+            your Wallet</a> </span></p>
+      <h1 style="margin:30px 0;" align="center" id="timeline">BEP-20 Token AirDrop</h1>
+    </div>
+
+    <div class="container">
+      <form>
+        <div class="row">
+          <div class="col-12">
+            <fieldset>
+              <div class="mb-3">
                 <select class="form-select" aria-label="Select a token from your wallet">
                   <option selected>Select a token from your Wallet</option>
                   <option>IM Super League (IMSL) 0xc8ae2289c032b119dfd29396f1fc68ee91f80118</option>
                   <option>Wrapped BNB (WBNB) 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c</option>
                 </select>
-            </div>
-            <div class="mb-3">
-              <input type="text" class="form-control" placeholder="If you prefer, you can insert Token Contract Address manually">          
-            </div>
-            <div class="mb-3">
-              <input type="text" class="form-control" placeholder="Token Decimals (Auto Populated)">          
-            </div>
-          </fieldset>
-        </div>  
-  
-        <div class="col-12">        
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control"
+                  placeholder="If you prefer, you can insert Token Contract Address manually">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Token Decimals (Auto Populated)">
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="col-12">
             <label style="margin-top:20px;" class="form-label" for="customFile">Upload CSV, TXT or XLS file.</label>
             <input type="file" class="form-control" id="customFile" />
-          </br>
-        </div> 
-  
+            </br>
+          </div>
+
         </div>
-  
+
         <div class="row">
-          <div class="col-12">  
-            <label style="margin-top:20px;" class="form-label" for="customFile">Paste destinations addresses and amount of tokens to send separated by a coma (one wallet per line):</label>          
-          <div class="input-group" style="margin:10px 0;">
-          <span class="input-group-text">Addresses</span>
-          <textarea class="form-control" aria-label="List of Addresses in CSV" rows="15">
+          <div class="col-12">
+            <label style="margin-top:20px;" class="form-label" for="customFile">Paste destinations addresses and amount
+              of tokens to send separated by a coma (one wallet per line):</label>
+            <div class="input-group" style="margin:10px 0;">
+              <span class="input-group-text">Addresses</span>
+              <textarea class="form-control" aria-label="List of Addresses in CSV" rows="15">
   0xe563d4e4cea82b0b9538193196057dbd55ebb8fe,1000
   0xa1921adcd24566079ff2b42a7790ae9a2dd5dd9a,1000
   0xad0c8cd522923cf90d8468f1237e520692b4f63c,1000
@@ -263,17 +273,17 @@
   0x8c4813b6f3627b9d880d57a2bcf0da6a5fe1a107,1000
   0xc80677ed2ca3462c89362af92a4463602874357a,1000
   </textarea>
-          </div>    
-          
-            <label style="margin-top:20px;" class="form-label" for="customFile">Max. Wallets allowed for Tx: 150.</label>
+            </div>
+
+            <label style="margin-top:20px;" class="form-label" for="customFile">Max. Wallets allowed for Tx:
+              150.</label>
             <p style="text-align:center; margin:36px;">
               <a href="summary.html" type="button" class="btn btn-lg btn-primary">Approve Token</a>
             </p>
-       </div>
-        </form>
+          </div>
+      </form>
     </div>
   </div>
-  </div>
-  
-  <p align="center"><a href="#top">Go back to the top</a></p>
-  </body>
+  </div> -->
+
+</body>
