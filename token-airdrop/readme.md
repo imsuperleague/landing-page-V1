@@ -8,3 +8,12 @@ Setup steps:
 4. Input the receiver address and amount, do the airdop.
 
 if 'react-scripts not found', try `yarn install -g react-scripts`
+
+
+----
+just for /build
+
+`yarn global add http-server`
+
+cd /build
+`hs` then open the url to run the page.
