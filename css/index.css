@@ -1,0 +1,113 @@
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  .nav .text-secondary {
+    color: darkgoldenrod;
+  }
+
+  .darkgoldenrod {
+    color: darkgoldenrod;
+  }
+
+  .card-cover span {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+  }
+
+  .nav {
+    margin-left: 20px;
+  }
+
+  .nav a:hover{
+    background: darkgoldenrod;
+    color: white;
+  }
+
+  .titulos {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+  }
+
+  .d-flex small {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  .h-100 {
+    height: 130%!important;
+  }
+
+  .team-card {
+    min-height:400px;
+  }
+  .team-card img {
+    height:400px;
+  }
+  .team-small img{
+    width: 65px;
+    height: auto;
+  }
+  .team-small {
+    margin: 0px;
+    padding: 0px; 
+    padding-left: 0px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;        
+  }
+  .team-small li {
+    margin: 0px;
+    display: inline;       
+    list-style-type: none;
+    margin: 3px;
+    padding: 0px;
+  }
+  .loguitos {
+    margin-bottom:-100px;
+    height:65px;
+    width:auto;
+  }
+
+
+  @media (max-width: 1024px) {
+    
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+        }
+    .team-card img {
+        display: block;
+        width:500px;
+        height:500px;
+    }        
+    #myCarousel2 img {
+        display: block;
+        max-width:100%;
+        max-height:500px;
+        width: auto;
+        height: auto;
+    }
+    #myCarousel2 {
+        max-height:500px;        
+    }
+    .loguitos {
+        margin-bottom:250px;
+        height:35px;
+        width:100%;
+    }      
+    .chao {
+        display: none;
+    }
+    .titulos {
+        padding: 1px;
+        font-size: 36px;
+    }
+
+  }
