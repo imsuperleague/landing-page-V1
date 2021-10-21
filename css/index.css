@@ -63,18 +63,6 @@
     margin-inline-end: 0px;
     padding-inline-start: 0px;        
   }
-  .team-small li {
-    margin: 0px;
-    display: inline;       
-    list-style-type: none;
-    margin: 3px;
-    padding: 0px;
-  }
-  .loguitos {
-    margin-bottom:-100px;
-    height:65px;
-    width:auto;
-  }
 
 
   @media (max-width: 1024px) {
@@ -96,18 +84,14 @@
     }
     #myCarousel2 {
         max-height:500px;        
-    }
-    .loguitos {
-        margin-bottom:250px;
-        height:35px;
-        width:100%;
-    }      
+    }     
     .chao {
         display: none;
     }
     .titulos {
         padding: 1px;
         font-size: 36px;
-    }
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+      }
 
   }
